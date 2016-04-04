@@ -304,7 +304,7 @@ int main(int argc, char** argv) {
          << "  -d: [USE] Favor alignment points close to the monotonic diagonoal\n"
          << "  -o: [USE] Optimize how close to the diagonal alignment points should be\n"
          << "  -r: Run alignment in reverse (condition on target and predict source)\n"
-         << "  -c: Output conditional probability table\n"
+         << "  -p: Output conditional probability table\n"
          << " Advanced options:\n"
          << "  -I: number of iterations in EM training (default = 5)\n"
          << "  -q: p_null parameter (default = 0.08)\n"
