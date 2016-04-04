@@ -135,6 +135,7 @@ void UpdateFromPairs(const vector<string>& lines, const int lc, const int iter,
 #pragma omp parallel for schedule(dynamic) reduction(+:emp_feat_,c0_,likelihood_)
   for (int line_idx = 0; line_idx < static_cast<int>(lines.size());
       ++line_idx) {
+    double localLikhood = 0.0;
     vector<unsigned> src, trg;
     ParseLine(lines[line_idx], &src, &trg);
     if (is_reverse)
@@ -203,11 +204,12 @@ void UpdateFromPairs(const vector<string>& lines, const int lc, const int iter,
         }
       }
       likelihood_ += log(sum);
+      localLikhood += log(sum);
     }
     if (final_iteration) {
       if (print_scores) {
         double log_prob = Md::log_poisson(trg.size(), 0.05 + src.size() * mean_srclen_multiplier);
-        log_prob += likelihood_;
+        log_prob += localLikhood;
         oss << " ||| " << log_prob;
       }
       oss << endl;
